@@ -1,17 +1,35 @@
-import React from 'react';
+import React,{useState,useEffect, useContext} from 'react';
 import './Home.css';
-import { Form ,Button} from 'react-bootstrap';
+import { Form ,Button, Spinner, Alert} from 'react-bootstrap';
 import Tables from '../../Components/Tables/Tables';
 import { useNavigate } from 'react-router-dom';
+import Spinners from '../../Components/Spinners/Spinners';
+import { addData } from '../../Components/Contexts/ContextProvider';
 
 function Home() {
 
   const navigate = useNavigate()
+  const [showspin,setShowSpin] = useState(true);
+  const { useradd, setUseradd } = useContext(addData);
+
   const adduser = () => {
     navigate("/register")
   }
+
+  useEffect(()=>{
+    
+    setTimeout(()=>{
+      // userGet()
+        setShowSpin(false)
+    },2000)
+  })
   return (
     <>
+    {
+      useradd? <Alert variant="success" onClose={() => setUseradd('')} dismissible>
+      {useradd.fname.toUpperCase()} Succesfully Registered
+    </Alert>:""
+    }
     <div className="container">
       <div className="main_div">
         {/* search box add btn */}
@@ -34,7 +52,10 @@ function Home() {
         
       </div>
       {/* table */}
-      <Tables/>
+      {
+        showspin ? <Spinners/>:<Tables/>
+      }
+      
     </div>
     </>
   )

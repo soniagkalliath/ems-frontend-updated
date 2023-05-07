@@ -5,10 +5,12 @@ import Tables from '../../Components/Tables/Tables';
 import { useNavigate } from 'react-router-dom';
 import Spinners from '../../Components/Spinners/Spinners';
 import { addData } from '../../Components/Contexts/ContextProvider';
+import { getallusers } from '../../services/allapis';
 
 function Home() {
 
   const navigate = useNavigate()
+  const [userdata,setUserData] = useState([]);
   const [showspin,setShowSpin] = useState(true);
   const { useradd, setUseradd } = useContext(addData);
 
@@ -16,13 +18,23 @@ function Home() {
     navigate("/register")
   }
 
+  const getusers = async ()=>{
+    const response = await getallusers()
+    if(response.status==200){
+      const {usersdata} = response.data
+      setUserData(usersdata);
+    }else{
+      console.log('Cannot fetch data');
+    }
+  }
+  // console.log(userdata);
   useEffect(()=>{
     
     setTimeout(()=>{
-      // userGet()
+        getusers()
         setShowSpin(false)
     },2000)
-  })
+  },[])
   return (
     <>
     {
@@ -53,7 +65,7 @@ function Home() {
       </div>
       {/* table */}
       {
-        showspin ? <Spinners/>:<Tables/>
+        showspin ? <Spinners/>:<Tables displayData={userdata}/>
       }
       
     </div>

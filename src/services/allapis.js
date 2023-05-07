@@ -6,7 +6,7 @@ export const registerfunc = async(data,header)=>{
     return await commonrequest("POST",`${BASE_URL}/user/register`,data,header);
 }
 //to get all user
-// export const usergetFunc = async()=>{
-//     return await commonrequest("GET",`${BASE_URL}/user/details`,"");
+export const getallusers = async()=>{
+    return await commonrequest("GET",`${BASE_URL}/user/getallusers`,"");
 
-// }
+}

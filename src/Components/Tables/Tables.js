@@ -56,7 +56,7 @@ function Tables({displayData}) {
                                 </Dropdown.Toggle>
                                 <Dropdown.Menu>
                                   <Dropdown.Item >
-                                    <Link to={'/profile/1'} className="text-decoration-none">
+                                    <Link to={`/profile/${item._id}`} className="text-decoration-none">
                                       <i class="fa-solid fa-eye" style={{ color: "green" }}></i> <span>View</span>
                                     </Link>
                                   </Dropdown.Item>

@@ -8,5 +8,9 @@ export const registerfunc = async(data,header)=>{
 //to get all user
 export const getallusers = async()=>{
     return await commonrequest("GET",`${BASE_URL}/user/getallusers`,"");
+}
 
+//get a particular user
+export const getauser = async(id)=>{
+    return await commonrequest("GET",`${BASE_URL}/user/view/${id}`,"");
 }

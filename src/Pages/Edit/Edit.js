@@ -4,8 +4,9 @@ import { Card,Row,Form,Button } from 'react-bootstrap';
 import Select from 'react-select';
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Spinners from '../../Components/Spinners/Spinners';
+import { getauser } from '../../services/allapis';
 
 function Edit() {
   const navigate = useNavigate()
@@ -16,8 +17,25 @@ function Edit() {
     { value: 'InActive', label: 'InActive' },
   ];
 
+  const {id} = useParams()
+  // console.log(id);
+  const [user,setUser] = useState({})
   const [showspin,setShowSpin] = useState(true);
 
+  //get particular user details
+  const getuserDetails = async()=>{
+    const response = await getauser(id)
+    // console.log(response.id);
+    if(response.status==200){
+      const {userDetails} =response.data
+    setUser(userDetails)
+    }else{
+      console.log("Error");
+    }
+    
+  }
+
+  console.log(user);
   //state to input values
   const [inputdata, setInputData] = useState({
     fname: "",
@@ -53,6 +71,7 @@ function Edit() {
  }
 
  useEffect(() => {
+  getuserDetails()
   if (image) {
     setPreview(URL.createObjectURL(image))
   }

@@ -61,7 +61,7 @@ function Tables({displayData}) {
                                     </Link>
                                   </Dropdown.Item>
                                   <Dropdown.Item >
-                                    <Link to={`/edit/1`} className="text-decoration-none">
+                                    <Link to={`/edit/${item._id}`} className="text-decoration-none">
                                       <i class="fa-solid fa-pen-to-square" style={{ color: "blue" }}></i> <span>Edit</span>
                                     </Link>
                                   </Dropdown.Item>
@@ -74,7 +74,7 @@ function Tables({displayData}) {
                               </Dropdown>
                     </td>
                   </tr>
-                  )): <tr  className='d-flex justify-content-center mt-5 w-100 align-items-center text-danger'>Sorry!!! Nothing to display</tr>
+                  )): <tr  className='d-flex justify-content-center mt-5 w-100 align-items-center text-danger'>User not found!!!</tr>
                  
                 }
                 </tbody>

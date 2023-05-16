@@ -10,6 +10,7 @@ import { getallusers } from '../../services/allapis';
 function Home() {
 
   const navigate = useNavigate()
+  const [search,setSearch] = useState("")
   const [userdata,setUserData] = useState([]);
   const [showspin,setShowSpin] = useState(true);
   const { useradd, setUseradd } = useContext(addData);
@@ -19,7 +20,7 @@ function Home() {
   }
 
   const getusers = async ()=>{
-    const response = await getallusers()
+    const response = await getallusers(search)
     if(response.status==200){
       const {usersdata} = response.data
       setUserData(usersdata);
@@ -29,12 +30,12 @@ function Home() {
   }
   // console.log(userdata);
   useEffect(()=>{
-    
+    getusers()
     setTimeout(()=>{
-        getusers()
+        
         setShowSpin(false)
     },2000)
-  },[])
+  },[search])
   return (
     <>
     {
@@ -53,6 +54,7 @@ function Home() {
               placeholder="Search"
               className="me-2"
               aria-label="Search"
+              onChange={e=>setSearch(e.target.value)}
             />
             <Button variant="success">Search</Button>
           </Form>
